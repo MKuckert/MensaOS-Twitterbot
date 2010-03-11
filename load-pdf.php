@@ -115,6 +115,9 @@ foreach($data as $weekday=>$dataCollection) {
 	$mainMeal=$dataCollection[1];
 	$mainMeal=array_map('trim', $mainMeal);
 	$mainMeal=implode(', ', $mainMeal);
+	if(strlen($mainMeal)>140) {
+		$mainMeal=substr($mainMeal, 0, 137).'...';
+	}
 	$mainMeals[$weekday]=$mainMeal;
 }
 

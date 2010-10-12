@@ -1,0 +1,7 @@
+Licensed under the New BSD (http://www.opensource.org/licenses/bsd-license.php)
+
+Uses the zend framework to connect to the twitter API. The framework itself is
+not included in this project, you have to download it yourself at http://framework.zend.com
+
+You may want to edit the init.php file to specify the OAuth settings and the path
+to the zend framework.

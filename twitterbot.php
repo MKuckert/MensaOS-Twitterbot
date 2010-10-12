@@ -1,7 +1,5 @@
 <?php
-ignore_user_abort(true);
-define('TWITTER_USER', 'YourTwitterUserHere');
-define('TWITTER_PASS', 'YourTwitterPasswordHere');
+require_once 'init.php';
 
 $data=include 'mensa-export.php';
 
@@ -15,11 +13,12 @@ if(!isset($weekdays[$dayOfWeek])) {
 
 $todaysMeal=$data[$weekdays[$dayOfWeek]];
 
-// Include zend framework
-set_include_path(get_include_path().PATH_SEPARATOR.'/path/to/zend-framework/');
-require_once 'Zend/Loader/Autoloader.php';
-Zend_Loader_Autoloader::getInstance();
+$token=unserialize(file_get_contents(OAUTH_TOKENFILE));
+$twitter=new Zend_Service_Twitter(array(
+	'username' => TWITTER_USERNAME,
+	'consumerKey' => OAUTH_CONSUMERKEY,
+	'consumerSecret' => OAUTH_CONSUMERSECRET,
+	'accessToken' => $token
+));
 
-
-$twitter=new Zend_Service_Twitter(TWITTER_USER, TWITTER_PASS);
-$response=$twitter->status->update($todaysMeal);
+$twitter->status->update($todaysMeal);
